@@ -64,23 +64,23 @@ if (!isset($_GET_lower['request'], $_GET_lower['service'])) {
             } else {
                 if ($scale <= $maxscale) {
                     //Proxy
-                     $aContext = array(
+                   /*  $aContext = array(
                         'http' => array(
                             'proxy' => 'tcp://192.168.1.73:8080',
                             'request_fulluri' => true,
                         ),
                     );
-                    $cxContext = stream_context_create($aContext);    
+                    $cxContext = stream_context_create($aContext);    */
                     $nbtiles = 0;    
                     foreach ($communes as $commune) {
                         $insee = ($commune['insee']);
                         $service = 'http://inspire.cadastre.gouv.fr/scpc/'. $premium .'/'. $insee .'.wms?';
                         if ($nbtiles == 0) {            
-                            $img = imagecreatefromstring(file_get_contents($service . $parameters, False, $cxContext));
+                            $img = imagecreatefromstring(file_get_contents($service . $parameters, False));
                             imagealphablending($img, true);
                             imagesavealpha($img, true);
                         } else {
-                            $frame = imagecreatefromstring(file_get_contents($service . $parameters, False, $cxContext));
+                            $frame = imagecreatefromstring(file_get_contents($service . $parameters, False));
                             imagealphablending($frame, true);
                             imagesavealpha($frame, true);
                             imagecopy($img, $frame, 0, 0, 0, 0, $height, $width);
